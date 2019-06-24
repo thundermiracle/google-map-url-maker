@@ -85,8 +85,7 @@ function RootIndex() {
                     <option value="川口市">川口市</option>
                     <option value="春日部市">春日部市</option>
                     <option value="越谷市">越谷市</option>
-                    <option value="さいたま市岩槻区">さいたま市岩槻区</option>
-                    <option value="さいたま市緑区">さいたま市緑区</option>
+                    <option value="さいたま市">さいたま市</option>
                   </Select>
                 </FormControl>
               </Grid>

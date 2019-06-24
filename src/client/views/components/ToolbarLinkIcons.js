@@ -8,7 +8,7 @@ const ToolbarLinkIcons = () => {
   return (
     <Fragment>
       <IconButton
-        href="https://github.com/thundermiracle/next-boilerplate"
+        href="https://github.com/thundermiracle/google-map-url-maker"
         color="inherit"
       >
         <GitHub />
