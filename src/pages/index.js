@@ -11,7 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 
-import pergeAddress from '../core/pergeAddress';
+import purgeAddress from '../core/purgeAddress';
 import makeGoogleMapUrl from '../core/makeGoogleMapUrl';
 
 function RootIndex() {
@@ -32,7 +32,7 @@ function RootIndex() {
     const addressList = addressBefore
       .replace(/\r\n|\r/g, '\n')
       .split('\n')
-      .map(pergeAddress);
+      .map(purgeAddress);
 
     const mapUrlList = addressList.map(ad =>
       makeGoogleMapUrl(values.prefecture, values.city, ad),
