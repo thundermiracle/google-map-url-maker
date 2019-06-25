@@ -1,13 +1,13 @@
-function countOfStr(str, findStr) {
+function countOfHyphen(str) {
   return (str.match(/-/g) || []).length;
 }
 
 function delHyphen(str) {
-  const hyphenCount = countOfStr(str, '-');
+  const hyphenCount = countOfHyphen(str);
 
   const replaceList = [];
   let startPos = 0;
-  for (let index = 0; index < hyphenCount; index++) {
+  for (let index = 0; index < hyphenCount; index += 1) {
     const hInd = str.indexOf('-', startPos);
     // for next hyphen
     startPos = startPos === 0 ? 1 : startPos;
