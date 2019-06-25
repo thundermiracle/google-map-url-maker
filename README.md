@@ -2,7 +2,7 @@
 
 ## Description
 
-Auto retrieve redundant hyphens and generate google map urls from addresses
+Automatically retrieve redundant hyphens and generate google map urls from fomatted addresses
 
 ## Url
 
