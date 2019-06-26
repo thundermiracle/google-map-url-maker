@@ -70,3 +70,12 @@ test('multiple Hyphen', () => {
 
   expect(result).toEqual(expected);
 });
+
+test('not remove alphabet-number', () => {
+  const input = 'スーパービルD-1';
+  const expected = 'スーパービルD-1';
+
+  const result = delRedundantHyphen(input);
+
+  expect(result).toEqual(expected);
+});
