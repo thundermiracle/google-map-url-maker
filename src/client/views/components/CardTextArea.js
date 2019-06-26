@@ -19,7 +19,7 @@ export default function CardTextArea({ autoCopy, ...restProps }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
-  const handleFocus = e => {
+  const handleAutoCopy = e => {
     if (autoCopy) {
       e.target.select();
       document.execCommand('copy');
@@ -36,8 +36,8 @@ export default function CardTextArea({ autoCopy, ...restProps }) {
           <TextField
             className={classes.readOnly}
             variant="outlined"
-            onFocus={handleFocus}
-            // onClick={handleFocus}
+            // onFocus={handleAutoCopy}
+            onClick={handleAutoCopy}
             multiline
             fullWidth
             rows={16}
