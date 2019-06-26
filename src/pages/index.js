@@ -1,18 +1,24 @@
 import React from 'react';
 
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
+import { TextField, Grid, Card, CardContent } from '@material-ui/core';
 
+import CardTextArea from 'components/CardTextArea';
+import SimpleSelect from 'components/SimpleSelect';
 import purgeAddress from '../core/purgeAddress';
 import makeGoogleMapUrl from '../core/makeGoogleMapUrl';
+
+const PrefectureList = ['埼玉県'];
+const CityList = [
+  '三郷市',
+  '八潮市',
+  '吉川市',
+  '草加市',
+  '越谷市',
+  '川口市',
+  '春日部市',
+  '越谷市',
+  'さいたま市',
+];
 
 function RootIndex() {
   const [values, setValues] = React.useState({
@@ -20,11 +26,11 @@ function RootIndex() {
     city: '草加市',
     addressBef: '',
     addressAft: '',
+    addressForMap: '',
     mapUrl: '',
   });
 
-  const getTransformed = () => {
-    const addressBefore = values.addressBef;
+  const getTransformed = addressBefore => {
     const addressList = addressBefore
       .replace(/\r\n|\r/g, '\n')
       .split('\n')
@@ -42,18 +48,15 @@ function RootIndex() {
 
   const handleChange = name => event => {
     if (name === 'addressBef') {
-      setValues({ ...values, [name]: event.target.value, ...getTransformed() });
+      setValues({
+        ...values,
+        [name]: event.target.value,
+        ...getTransformed(event.target.value),
+      });
     } else {
       setValues({ ...values, [name]: event.target.value });
     }
   };
-
-  // const onTransform = () => {
-  //   setValues({
-  //     ...values,
-  //     ...getTransformed(),
-  //   });
-  // };
 
   return (
     <Grid container spacing={3}>
@@ -61,53 +64,27 @@ function RootIndex() {
         <Card>
           <CardContent>
             <Grid container spacing={2}>
-              <Grid item md={6} xs={12}>
-                <FormControl>
-                  <InputLabel htmlFor="prefecture-select">
-                    Prefecture
-                  </InputLabel>
-                  <Select
-                    autoWidth
-                    value={values.prefecture}
-                    onChange={handleChange('prefecture')}
-                    inputProps={{
-                      name: 'prefecture',
-                      id: 'prefecture-select',
-                    }}
-                  >
-                    <MenuItem value="埼玉県">埼玉県</MenuItem>
-                  </Select>
-                </FormControl>
+              <Grid item md={3} xs={6}>
+                <SimpleSelect
+                  label="Prefecture"
+                  handleChange={handleChange('prefecture')}
+                  valueList={PrefectureList}
+                  value={values.prefecture}
+                />
               </Grid>
 
-              <Grid item md={6} xs={12}>
-                <FormControl>
-                  <InputLabel htmlFor="city-select">City</InputLabel>
-                  <Select
-                    autoWidth
-                    value={values.city}
-                    onChange={handleChange('city')}
-                    inputProps={{
-                      name: 'city',
-                      id: 'city-select',
-                    }}
-                  >
-                    <MenuItem value="三郷市">三郷市</MenuItem>
-                    <MenuItem value="八潮市">八潮市</MenuItem>
-                    <MenuItem value="吉川市">吉川市</MenuItem>
-                    <MenuItem value="草加市">草加市</MenuItem>
-                    <MenuItem value="越谷市">越谷市</MenuItem>
-                    <MenuItem value="川口市">川口市</MenuItem>
-                    <MenuItem value="春日部市">春日部市</MenuItem>
-                    <MenuItem value="越谷市">越谷市</MenuItem>
-                    <MenuItem value="さいたま市">さいたま市</MenuItem>
-                  </Select>
-                </FormControl>
+              <Grid item md={3} xs={6}>
+                <SimpleSelect
+                  label="City"
+                  handleChange={handleChange('city')}
+                  valueList={CityList}
+                  value={values.city}
+                />
               </Grid>
 
               <Grid item xs={12}>
                 <TextField
-                  label="Address Before"
+                  label="変換前アドレス"
                   variant="outlined"
                   multiline
                   fullWidth
@@ -118,44 +95,35 @@ function RootIndex() {
               </Grid>
             </Grid>
           </CardContent>
-          {/* <CardActions>
-            <Button onClick={onTransform} color="primary">
-              Transform
-            </Button>
-          </CardActions> */}
         </Card>
       </Grid>
 
       <Grid item md={6} xs={12}>
-        <Card>
-          <CardContent>
-            <TextField
-              label="Address After"
-              variant="outlined"
-              multiline
-              fullWidth
-              rows={16}
-              value={values.addressAft}
-              onChange={handleChange('addressAft')}
-            />
-          </CardContent>
-        </Card>
+        <CardTextArea
+          placeholder="変換前アドレスを入力してください"
+          label="変換後アドレス"
+          rows={16}
+          value={values.addressAft}
+        />
       </Grid>
 
       <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <TextField
-              label="Map Url"
-              variant="outlined"
-              multiline
-              fullWidth
-              rows={18}
-              value={values.mapUrl}
-              onChange={handleChange('mapUrl')}
-            />
-          </CardContent>
-        </Card>
+        <CardTextArea
+          placeholder="変換前アドレスを入力してください"
+          label="地図用アドレス"
+          rows={3}
+          autoCopy={false}
+          value={values.addressForMap}
+        />
+      </Grid>
+
+      <Grid item xs={12}>
+        <CardTextArea
+          placeholder="変換前アドレスを入力してください"
+          label="地図リンク"
+          rows={18}
+          value={values.mapUrl}
+        />
       </Grid>
     </Grid>
   );
