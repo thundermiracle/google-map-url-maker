@@ -4,8 +4,8 @@ import { TextField, Grid, Card, CardContent } from '@material-ui/core';
 
 import CardTextArea from 'components/CardTextArea';
 import SimpleSelect from 'components/SimpleSelect';
-import purgeAddress from '../core/purgeAddress';
-import makeGoogleMapUrl from '../core/makeGoogleMapUrl';
+import purgeAddress from 'core/purgeAddress';
+import makeGoogleMapUrl from 'core/makeGoogleMapUrl';
 
 const PrefectureList = ['埼玉県'];
 const CityList = [
