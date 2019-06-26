@@ -59,7 +59,7 @@ function RootIndex() {
   };
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={3} style={{ marginBottom: 40 }}>
       <Grid item md={6} xs={12}>
         <Card>
           <CardContent>
@@ -102,7 +102,7 @@ function RootIndex() {
         <CardTextArea
           placeholder="変換前アドレスを入力してください"
           label="変換後アドレス"
-          rows={16}
+          rows={13}
           value={values.addressAft}
         />
       </Grid>

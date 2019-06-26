@@ -15,11 +15,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CardTextArea({ autoCopy, ...restProps }) {
+export default function CardTextArea({ autoCopy, label, ...restProps }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleAutoCopy = e => {
+    if (e.target.value === '') {
+      return;
+    }
+
     if (autoCopy) {
       e.target.select();
       document.execCommand('copy');
@@ -35,6 +39,7 @@ export default function CardTextArea({ autoCopy, ...restProps }) {
         <CardContent>
           <TextField
             className={classes.readOnly}
+            label={label}
             variant="outlined"
             // onFocus={handleAutoCopy}
             onClick={handleAutoCopy}
@@ -49,7 +54,7 @@ export default function CardTextArea({ autoCopy, ...restProps }) {
         open={open}
         handleClose={handleClose}
         variant="success"
-        message="Copied!"
+        message={`「${label}」をコピーしました！`}
       />
     </>
   );
@@ -57,6 +62,7 @@ export default function CardTextArea({ autoCopy, ...restProps }) {
 
 CardTextArea.propTypes = {
   autoCopy: PropTypes.bool,
+  label: PropTypes.string.isRequired,
 };
 
 CardTextArea.defaultProps = {
