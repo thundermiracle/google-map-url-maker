@@ -22,9 +22,7 @@ export default function delRedundantHyphen(str) {
   let startPos = 0;
   for (let index = 0; index < hyphenCount; index += 1) {
     const hInd = baseStr.indexOf('-', startPos);
-    // for next hyphen
-    startPos = startPos === 0 ? 1 : startPos;
-    startPos += hInd;
+    startPos = hInd + 1;
 
     const cBef = baseStr.substr(hInd - 1, 1);
     const cAft = baseStr.substr(hInd + 1, 1);
