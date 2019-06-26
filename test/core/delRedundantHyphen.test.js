@@ -79,3 +79,12 @@ test('not remove alphabet-number', () => {
 
   expect(result).toEqual(expected);
 });
+
+test('remove a-b-c-1-2-3', () => {
+  const input = '新宿2-32-10-団地';
+  const expected = '新宿2-32-10 団地';
+
+  const result = delRedundantHyphen(input);
+
+  expect(result).toEqual(expected);
+});
