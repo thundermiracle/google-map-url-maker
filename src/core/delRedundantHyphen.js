@@ -1,4 +1,5 @@
 import countOfStr from './countOfStr';
+import isAlphOrNum from './isAlphOrNum';
 
 function delExtra(str) {
   return (
@@ -28,13 +29,13 @@ export default function delRedundantHyphen(str) {
     const cBef = baseStr.substr(hInd - 1, 1);
     const cAft = baseStr.substr(hInd + 1, 1);
 
-    if (!Number.isInteger(+cBef) && Number.isInteger(+cAft)) {
+    if (!isAlphOrNum(cBef) && isAlphOrNum(cAft)) {
       /*
        * character before is not number, but after is, replace to space
        * 新宿ビル-205室
        */
       replaceList.push([`${cBef}-${cAft}`, `${cBef} ${cAft}`]);
-    } else if (Number.isInteger(+cBef) && !Number.isInteger(+cAft)) {
+    } else if (isAlphOrNum(cBef) && !isAlphOrNum(cAft)) {
       /*
        * character before is number, but after is not, replace to space
        * 3-2-1-新宿ビル
