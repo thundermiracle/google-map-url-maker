@@ -3,8 +3,9 @@
   "version": "0.2.0",
   "description": "simple boilerplate for next.js",
   "scripts": {
-    "eslint": "eslint src/ --fix",
-    "test": "npm run eslint",
+    "eslint": "eslint src/",
+    "jest": "jest --passWithNoTests",
+    "test": "npm run eslint && npm run jest",
     "dev": "next ./src -p 3000",
     "export": "next build ./src && next export ./src -o .statichtml/"
   },
@@ -23,6 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "babel-eslint": "^10.0.2",
+    "babel-jest": "^24.8.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
@@ -30,8 +32,10 @@
     "eslint-config-react": "^1.1.7",
     "eslint-import-resolver-babel-module": "^5.0.0-beta.1",
     "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jest": "^22.7.1",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.14.0",
+    "jest": "^24.8.0",
     "prettier": "^1.16.4",
     "react-hot-loader": "^4.11.1"
   }
