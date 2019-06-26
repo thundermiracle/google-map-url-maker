@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
+import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Grid from '@material-ui/core/Grid';
@@ -23,11 +23,7 @@ function RootIndex() {
     mapUrl: '',
   });
 
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
-  };
-
-  const onTransform = () => {
+  const getTransformed = () => {
     const addressBefore = values.addressBef;
     const addressList = addressBefore
       .replace(/\r\n|\r/g, '\n')
@@ -38,12 +34,26 @@ function RootIndex() {
       makeGoogleMapUrl(values.prefecture, values.city, ad),
     );
 
-    setValues({
-      ...values,
+    return {
       addressAft: addressList.join('\r\n'),
       mapUrl: mapUrlList.join('\r\n'),
-    });
+    };
   };
+
+  const handleChange = name => event => {
+    if (name === 'addressBef') {
+      setValues({ ...values, [name]: event.target.value, ...getTransformed() });
+    } else {
+      setValues({ ...values, [name]: event.target.value });
+    }
+  };
+
+  // const onTransform = () => {
+  //   setValues({
+  //     ...values,
+  //     ...getTransformed(),
+  //   });
+  // };
 
   return (
     <Grid container spacing={3}>
@@ -52,40 +62,45 @@ function RootIndex() {
           <CardContent>
             <Grid container spacing={2}>
               <Grid item md={6} xs={12}>
-                <TextField
-                  label="Prefecture"
-                  variant="outlined"
-                  disabled
-                  value={values.prefecture}
-                />
-              </Grid>
-
-              <Grid item md={6} xs={12}>
-                <FormControl variant="outlined">
-                  <InputLabel htmlFor="outlined-age-native-simple">
-                    City
+                <FormControl>
+                  <InputLabel htmlFor="prefecture-select">
+                    Prefecture
                   </InputLabel>
                   <Select
                     autoWidth
-                    native
+                    value={values.prefecture}
+                    onChange={handleChange('prefecture')}
+                    inputProps={{
+                      name: 'prefecture',
+                      id: 'prefecture-select',
+                    }}
+                  >
+                    <MenuItem value="埼玉県">埼玉県</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item md={6} xs={12}>
+                <FormControl>
+                  <InputLabel htmlFor="city-select">City</InputLabel>
+                  <Select
+                    autoWidth
                     value={values.city}
                     onChange={handleChange('city')}
-                    input={
-                      <OutlinedInput
-                        name="city"
-                        id="outlined-age-native-simple"
-                      />
-                    }
+                    inputProps={{
+                      name: 'city',
+                      id: 'city-select',
+                    }}
                   >
-                    <option value="三郷市">三郷市</option>
-                    <option value="八潮市">八潮市</option>
-                    <option value="吉川市">吉川市</option>
-                    <option value="草加市">草加市</option>
-                    <option value="越谷市">越谷市</option>
-                    <option value="川口市">川口市</option>
-                    <option value="春日部市">春日部市</option>
-                    <option value="越谷市">越谷市</option>
-                    <option value="さいたま市">さいたま市</option>
+                    <MenuItem value="三郷市">三郷市</MenuItem>
+                    <MenuItem value="八潮市">八潮市</MenuItem>
+                    <MenuItem value="吉川市">吉川市</MenuItem>
+                    <MenuItem value="草加市">草加市</MenuItem>
+                    <MenuItem value="越谷市">越谷市</MenuItem>
+                    <MenuItem value="川口市">川口市</MenuItem>
+                    <MenuItem value="春日部市">春日部市</MenuItem>
+                    <MenuItem value="越谷市">越谷市</MenuItem>
+                    <MenuItem value="さいたま市">さいたま市</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -103,11 +118,11 @@ function RootIndex() {
               </Grid>
             </Grid>
           </CardContent>
-          <CardActions>
+          {/* <CardActions>
             <Button onClick={onTransform} color="primary">
               Transform
             </Button>
-          </CardActions>
+          </CardActions> */}
         </Card>
       </Grid>
 
