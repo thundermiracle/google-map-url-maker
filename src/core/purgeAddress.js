@@ -1,9 +1,8 @@
-import delRedundantHyphen from './delRedundantHyphen';
+import { compose } from 'ramda';
+import purgeFullAddress from './purgeFullAddress';
+import splitAndPurgeAddress from './splitAndPurgeAddress';
 
-export default function purgeAddress(address) {
-  return address
-    .split(' ')
-    .filter(ad => ad !== '')
-    .map(delRedundantHyphen)
-    .join(' ');
-}
+export default compose(
+  splitAndPurgeAddress,
+  purgeFullAddress,
+);

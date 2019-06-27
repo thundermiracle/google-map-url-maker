@@ -1,3 +1,7 @@
+/**
+ * 新宿区 2-3-1 新宿ビル305　→　新宿区 2-3-1
+ * 新宿区2-3-1 新宿ビル305　→　新宿区2-3-1
+ */
 export default function cutToBlockNumber(address) {
   const result = [];
   const splittedAddresses = address.split(' ');

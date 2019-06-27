@@ -1,4 +1,4 @@
-import countOfStr from '../../src/core/countOfStr';
+import countOfStr from 'lib/countOfStr';
 
 describe('count hyphen', () => {
   test('not exist', () => {
