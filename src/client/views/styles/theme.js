@@ -1,9 +1,9 @@
-import { deepOrange, teal } from '@material-ui/core/colors';
+import { blue, pink } from '@material-ui/core/colors';
 
 const theme = {
   palette: {
-    primary: deepOrange,
-    secondary: teal,
+    primary: blue,
+    secondary: pink,
   },
   typography: {
     useNextVariants: true,

@@ -1,12 +1,6 @@
-# google-map-url-maker
-
 ## 概要
 
 住所をフォーマットし、Google Map 用の URL を自動生成するツールです。
-
-## Url
-
-https://map-url.netlify.com
 
 ## 処理順番
 

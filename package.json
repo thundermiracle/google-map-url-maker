@@ -1,7 +1,7 @@
 {
   "name": "map-url",
   "version": "0.2.0",
-  "description": "simple boilerplate for next.js",
+  "description": "automatically format addresses and generate google map urls",
   "scripts": {
     "eslint": "eslint src/",
     "jest": "jest --passWithNoTests",
@@ -24,6 +24,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
+    "@mdx-js/loader": "^1.0.21",
+    "@next/mdx": "^8.1.0",
     "babel-eslint": "^10.0.2",
     "babel-jest": "^24.8.0",
     "babel-plugin-module-resolver": "^3.2.0",
