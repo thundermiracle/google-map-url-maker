@@ -27,7 +27,7 @@ const styles = {
   },
 };
 
-const createListItems1Layer = (baseUri, LinkComponent, linkProps) => {
+const createListItems1Layer = (baseUri, baseText, LinkComponent, linkProps) => {
   let selectedStyle;
 
   return (
@@ -35,7 +35,7 @@ const createListItems1Layer = (baseUri, LinkComponent, linkProps) => {
       <Divider />
       <LinkComponent href={`/${baseUri}`} {...linkProps}>
         <ListItem button style={selectedStyle}>
-          <ListItemText primary={baseUri} style={styles.liStyle} />
+          <ListItemText primary={baseText} style={styles.liStyle} />
         </ListItem>
       </LinkComponent>
     </div>
@@ -43,13 +43,9 @@ const createListItems1Layer = (baseUri, LinkComponent, linkProps) => {
 };
 
 const createListItems2Layer = (baseUri, nameList, LinkComponent, linkProps) => {
-  const listTitle = (
-    <div style={styles.listTitle}>
-      {baseUri}
-    </div>
-  );
+  const listTitle = <div style={styles.listTitle}>{baseUri}</div>;
 
-  const listItems = nameList.map((name) => {
+  const listItems = nameList.map(name => {
     let selectedStyle;
 
     return (
@@ -70,23 +66,20 @@ const createListItems2Layer = (baseUri, nameList, LinkComponent, linkProps) => {
   );
 };
 
-const DrawerMenu = (props) => {
+const DrawerMenu = props => {
   const { pathMap, linkComponent, linkProps } = props;
-  const menuListItems = pathMap.map((onePathMap) => {
+  const menuListItems = pathMap.map(onePathMap => {
     const baseUri = onePathMap.pathname;
+    const baseText = onePathMap.pathtext;
     const nameList = onePathMap.children;
 
     if (nameList) {
       return createListItems2Layer(baseUri, nameList, linkComponent, linkProps);
-    } 
-    return createListItems1Layer(baseUri, linkComponent, linkProps);
+    }
+    return createListItems1Layer(baseUri, baseText, linkComponent, linkProps);
   });
 
-  return (
-    <div style={styles.menuRoot}>
-      {menuListItems}
-    </div>
-  );
+  return <div style={styles.menuRoot}>{menuListItems}</div>;
 };
 
 DrawerMenu.propTypes = {
