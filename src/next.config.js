@@ -1,5 +1,6 @@
 const config = require('../config/client');
 const { EnvironmentPlugin } = require('webpack');
+const withMDX = require('@next/mdx')({ extension: /\.mdx?$/ });
 
 process.env.PKG_VERSION = process.env.npm_package_version;
 process.env.PKG_NAME = process.env.npm_package_name;
@@ -10,7 +11,7 @@ process.env.SUBFOLDER =
     ? `/${process.env.npm_package_name}`
     : '';
 
-module.exports = {
+module.exports = withMDX({
   assetPrefix: process.env.SUBFOLDER,
   webpack: (config, { dev }) => {
     config.plugins.push(
@@ -19,4 +20,4 @@ module.exports = {
     return config;
   },
   distDir: '../.next',
-};
+});
