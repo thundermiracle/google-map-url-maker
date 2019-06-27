@@ -41,9 +41,7 @@ function RootIndex() {
       .map(cutToBlockNumber)
       .map(ad => `${values.prefecture}${values.city}${ad}`);
 
-    const mapUrlList = addressList.map(ad =>
-      makeGoogleMapUrl(values.prefecture, values.city, ad),
-    );
+    const mapUrlList = addressForMapList.map(ad => makeGoogleMapUrl(ad));
 
     return {
       addressAft: addressList.join('\r\n'),
