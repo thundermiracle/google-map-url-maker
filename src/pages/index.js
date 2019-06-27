@@ -17,7 +17,7 @@ const CityList = [
   '越谷市',
   '川口市',
   '春日部市',
-  '越谷市',
+  '北葛飾郡松伏町',
   'さいたま市',
 ];
 
@@ -70,7 +70,7 @@ function RootIndex() {
             <Grid container spacing={2}>
               <Grid item md={3} xs={6}>
                 <SimpleSelect
-                  label="Prefecture"
+                  label="都道府県"
                   handleChange={handleChange('prefecture')}
                   valueList={PrefectureList}
                   value={values.prefecture}
@@ -79,7 +79,7 @@ function RootIndex() {
 
               <Grid item md={3} xs={6}>
                 <SimpleSelect
-                  label="City"
+                  label="市区町村"
                   handleChange={handleChange('city')}
                   valueList={CityList}
                   value={values.city}
