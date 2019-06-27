@@ -6,6 +6,7 @@ import CardTextArea from 'components/CardTextArea';
 import SimpleSelect from 'components/SimpleSelect';
 import purgeAddress from 'core/purgeAddress';
 import makeGoogleMapUrl from 'core/makeGoogleMapUrl';
+import cutToBlockNumber from 'core/cutToBlockNumber';
 
 const PrefectureList = ['埼玉県'];
 const CityList = [
@@ -36,12 +37,15 @@ function RootIndex() {
       .split('\n')
       .map(purgeAddress);
 
+    const addressForMapList = addressList.map(cutToBlockNumber);
+
     const mapUrlList = addressList.map(ad =>
       makeGoogleMapUrl(values.prefecture, values.city, ad),
     );
 
     return {
       addressAft: addressList.join('\r\n'),
+      addressForMap: addressForMapList.join('\r\n'),
       mapUrl: mapUrlList.join('\r\n'),
     };
   };
