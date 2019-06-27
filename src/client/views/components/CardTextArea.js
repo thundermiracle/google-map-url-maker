@@ -54,7 +54,7 @@ export default function CardTextArea({ autoCopy, label, ...restProps }) {
         open={open}
         handleClose={handleClose}
         variant="success"
-        message={`「${label}」をコピーしました！`}
+        message={`「${label}」をコピーしました`}
       />
     </>
   );
