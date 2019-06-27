@@ -1,4 +1,4 @@
-import isAlphOrNum from '../../src/core/isAlphOrNum';
+import isAlphOrNum from 'lib/isAlphOrNum';
 
 test('single number', () => {
   const result = isAlphOrNum('2');
