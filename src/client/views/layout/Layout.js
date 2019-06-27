@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ResponsiveLayout from 'components/ResponsiveLayout';
+import PersistLayout from 'components/PersistLayout';
 
 import LayoutHead from './LayoutHead';
 import LayoutDrawerHeader from './LayoutDrawerHeader';
@@ -20,7 +20,7 @@ const Layout = props => {
   );
 
   return (
-    <ResponsiveLayout
+    <PersistLayout
       drawerHeader={layoutdrawerHeader}
       drawerMenu={<LayoutDrawerMenu />}
       title={title || `${process.env.PKG_NAME} ${process.env.PKG_VERSION}`}
@@ -29,7 +29,7 @@ const Layout = props => {
         title={title || `${process.env.PKG_NAME} ${process.env.PKG_VERSION}`}
       />
       {children}
-    </ResponsiveLayout>
+    </PersistLayout>
   );
 };
 
