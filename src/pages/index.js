@@ -20,6 +20,7 @@ const CityList = [
   '北葛飾郡松伏町',
   'さいたま市',
 ];
+const changeableFields = ['prefecture', 'city', 'addressBef'];
 
 function RootIndex() {
   const [values, setValues] = React.useState({
@@ -31,15 +32,16 @@ function RootIndex() {
     mapUrl: '',
   });
 
-  const getTransformed = addressBefore => {
-    const addressList = addressBefore
+  const getTransformed = ({ addressBef, prefecture, city }) => {
+    const addressList = addressBef
       .replace(/\r\n|\r/g, '\n')
       .split('\n')
-      .map(purgeAddress);
+      .map(purgeAddress)
+      .filter(x => x);
 
     const addressForMapList = addressList
       .map(cutToBlockNumber)
-      .map(ad => `${values.prefecture}${values.city}${ad}`);
+      .map(ad => `${prefecture}${city}${ad}`);
 
     const mapUrlList = addressForMapList.map(ad => makeGoogleMapUrl(ad));
 
@@ -51,14 +53,18 @@ function RootIndex() {
   };
 
   const handleChange = name => event => {
-    if (name === 'addressBef') {
+    const newValues = {
+      ...values,
+      [name]: event.target.value,
+    };
+
+    if (changeableFields.includes(name)) {
       setValues({
-        ...values,
-        [name]: event.target.value,
-        ...getTransformed(event.target.value),
+        ...newValues,
+        ...getTransformed(newValues),
       });
     } else {
-      setValues({ ...values, [name]: event.target.value });
+      setValues({ ...newValues });
     }
   };
 
