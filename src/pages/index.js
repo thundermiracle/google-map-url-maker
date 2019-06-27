@@ -37,7 +37,9 @@ function RootIndex() {
       .split('\n')
       .map(purgeAddress);
 
-    const addressForMapList = addressList.map(cutToBlockNumber);
+    const addressForMapList = addressList
+      .map(cutToBlockNumber)
+      .map(ad => `${values.prefecture}${values.city}${ad}`);
 
     const mapUrlList = addressList.map(ad =>
       makeGoogleMapUrl(values.prefecture, values.city, ad),
