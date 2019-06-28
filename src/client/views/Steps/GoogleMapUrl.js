@@ -27,7 +27,7 @@ function GoogleMapUrl({
         <CardTextArea
           placeholder="変換前アドレスを入力してください"
           label="地図リンク"
-          rows={18}
+          rows={16}
           value={mapUrl}
           {...mapUrlProps}
         />

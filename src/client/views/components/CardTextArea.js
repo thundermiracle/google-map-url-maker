@@ -24,6 +24,8 @@ export default function CardTextArea({ autoCopy, label, ...restProps }) {
       return;
     }
 
+    if (e.target.select == null) return;
+
     if (autoCopy) {
       e.target.select();
       document.execCommand('copy');
