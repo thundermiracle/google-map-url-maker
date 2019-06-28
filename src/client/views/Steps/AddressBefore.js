@@ -10,7 +10,7 @@ function AddressBefore({ addressBef, handleChangeAddressBef, ...restProps }) {
       variant="outlined"
       multiline
       fullWidth
-      rows={10}
+      rows={13}
       value={addressBef}
       onChange={handleChangeAddressBef}
       {...restProps}

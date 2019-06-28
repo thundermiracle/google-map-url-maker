@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import { Card, CardContent } from '@material-ui/core';
 
-export default function SimpleCard({ children }) {
+export default function SimpleCard({ children, ...resProps }) {
   return (
-    <Card>
+    <Card {...resProps}>
       <CardContent>{children}</CardContent>
     </Card>
   );

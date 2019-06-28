@@ -1,142 +1,77 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import { TextField, Grid, Card, CardContent } from '@material-ui/core';
+import { Grid, Typography, Divider } from '@material-ui/core';
 
-import CardTextArea from 'components/CardTextArea';
-import SimpleSelect from 'components/SimpleSelect';
-import makeGoogleMapUrl from 'core/makeGoogleMapUrl';
-import cutToBlockNumber from 'core/cutToBlockNumber';
-import purgeAddress from 'core/purgeAddress';
+import SimpleStepper from 'components/SimpleStepper';
 
-const PrefectureList = ['埼玉県'];
-const CityList = [
-  '三郷市',
-  '八潮市',
-  '吉川市',
-  '草加市',
-  '越谷市',
-  '川口市',
-  '春日部市',
-  '北葛飾郡松伏町',
-  'さいたま市',
-];
-const changeableFields = ['prefecture', 'city', 'addressBef'];
+import {
+  AddressAfter,
+  AddressBefore,
+  BaseSelect,
+  GoogleMapUrl,
+} from 'views/Steps';
+import SimpleCard from 'client/views/components/SimpleCard';
+import injectOperations from 'client/views/hoc/injectOperations';
 
-function RootIndex() {
-  const [values, setValues] = React.useState({
-    prefecture: '埼玉県',
-    city: '草加市',
-    addressBef: '',
-    addressAft: '',
-    addressForMap: '',
-    mapUrl: '',
-  });
+function RootIndex({ handleChange, values }) {
+  const steps = [
+    '都道府県、市区町村選択',
+    '変換前アドレスを入力',
+    'GoogleMap URL自動生成',
+    'アドレス自動フォーマット',
+  ];
 
-  const getTransformed = ({ addressBef, prefecture, city }) => {
-    const addressList = addressBef
-      .replace(/\r\n|\r/g, '\n')
-      .split('\n')
-      .map(purgeAddress)
-      .filter(x => x);
+  const step1 = (
+    <SimpleCard style={{ height: 364 }}>
+      <Typography variant="h5">
+        市区町村が間違わないようにご確認ください。
+      </Typography>
+      <Divider style={{ marginBottom: 20 }} />
+      <BaseSelect
+        prefecture={values.prefecture}
+        city={values.city}
+        handleChangePrefecture={handleChange('prefecture')}
+        handleChangeCity={handleChange('city')}
+      />
+    </SimpleCard>
+  );
+  const step2 = (
+    <SimpleCard>
+      <Typography variant="h4">
+        {values.prefecture}
+        {values.city}
+      </Typography>
+      <AddressBefore
+        addressBef={values.addressBef}
+        handleChangeAddressBef={handleChange('addressBef')}
+        rows={12}
+        style={{ marginTop: 20 }}
+      />
+    </SimpleCard>
+  );
+  const step3 = (
+    <GoogleMapUrl
+      addressForMap={values.addressForMap}
+      mapUrl={values.mapUrl}
+      addressForMapProps={{ rows: 2 }}
+      mapUrlProps={{ rows: 9 }}
+    />
+  );
+  const step4 = <AddressAfter addressAft={values.addressAft} rows={14} />;
 
-    const addressForMapList = addressList
-      .map(cutToBlockNumber)
-      .map(ad => `${prefecture}${city}${ad}`);
-
-    const mapUrlList = addressForMapList.map(ad => makeGoogleMapUrl(ad));
-
-    return {
-      addressAft: addressList.join('\r\n'),
-      addressForMap: addressForMapList.join('\r\n'),
-      mapUrl: mapUrlList.join('\r\n'),
-    };
-  };
-
-  const handleChange = name => event => {
-    const newValues = {
-      ...values,
-      [name]: event.target.value,
-    };
-
-    if (changeableFields.includes(name)) {
-      setValues({
-        ...newValues,
-        ...getTransformed(newValues),
-      });
-    } else {
-      setValues({ ...newValues });
-    }
-  };
+  const stepsContent = [step1, step2, step3, step4];
 
   return (
-    <Grid container spacing={3} style={{ marginBottom: 40 }}>
-      <Grid item md={6} xs={12}>
-        <Card>
-          <CardContent>
-            <Grid container spacing={2}>
-              <Grid item md={3} xs={6}>
-                <SimpleSelect
-                  label="都道府県"
-                  handleChange={handleChange('prefecture')}
-                  valueList={PrefectureList}
-                  value={values.prefecture}
-                />
-              </Grid>
-
-              <Grid item md={3} xs={6}>
-                <SimpleSelect
-                  label="市区町村"
-                  handleChange={handleChange('city')}
-                  valueList={CityList}
-                  value={values.city}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <TextField
-                  label="変換前アドレス"
-                  variant="outlined"
-                  multiline
-                  fullWidth
-                  rows={10}
-                  value={values.addressBef}
-                  onChange={handleChange('addressBef')}
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-      </Grid>
-
-      <Grid item md={6} xs={12}>
-        <CardTextArea
-          placeholder="変換前アドレスを入力してください"
-          label="変換後アドレス"
-          rows={13}
-          value={values.addressAft}
-        />
-      </Grid>
-
-      <Grid item xs={12}>
-        <CardTextArea
-          placeholder="変換前アドレスを入力してください"
-          label="地図用アドレス"
-          rows={3}
-          autoCopy={false}
-          value={values.addressForMap}
-        />
-      </Grid>
-
-      <Grid item xs={12}>
-        <CardTextArea
-          placeholder="変換前アドレスを入力してください"
-          label="地図リンク"
-          rows={18}
-          value={values.mapUrl}
-        />
-      </Grid>
+    <Grid container style={{ marginBottom: 40 }}>
+      <SimpleStepper steps={steps} stepsContent={stepsContent} />
     </Grid>
   );
 }
 
-export default RootIndex;
+RootIndex.propTypes = {
+  values: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
+
+export default injectOperations(RootIndex);

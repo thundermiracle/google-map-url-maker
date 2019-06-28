@@ -7,10 +7,12 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import SimpleCard from './SimpleCard';
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '90%',
+    margin: 'auto',
   },
   backButton: {
     marginRight: theme.spacing(1),
@@ -21,19 +23,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleStepper({ steps, stepsContent }) {
+export default function SimpleStepper({ steps, stepsContent, handleReset }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
-  function handleNext() {
+  function innerHandleNext() {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   }
 
-  function handleBack() {
+  function innerHandleBack() {
     setActiveStep(prevActiveStep => prevActiveStep - 1);
   }
 
-  function handleReset() {
+  function innerHandleReset() {
+    if (handleReset) handleReset();
     setActiveStep(0);
   }
 
@@ -48,26 +51,30 @@ export default function SimpleStepper({ steps, stepsContent }) {
       </Stepper>
       <div>
         {activeStep === steps.length ? (
-          <div>
-            <Typography className={classes.instructions}>
-              All steps completed
-            </Typography>
-            <Button onClick={handleReset}>Reset</Button>
+          <div className={classes.instructions}>
+            <SimpleCard>
+              <Typography variant="h5">All steps completed</Typography>
+            </SimpleCard>
+            <Button onClick={innerHandleReset}>Reset</Button>
           </div>
         ) : (
           <div>
-            <Typography className={classes.instructions}>
+            <div className={classes.instructions}>
               {stepsContent[activeStep]}
-            </Typography>
+            </div>
             <div>
               <Button
                 disabled={activeStep === 0}
-                onClick={handleBack}
+                onClick={innerHandleBack}
                 className={classes.backButton}
               >
                 Back
               </Button>
-              <Button variant="contained" color="primary" onClick={handleNext}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={innerHandleNext}
+              >
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </div>
@@ -81,4 +88,9 @@ export default function SimpleStepper({ steps, stepsContent }) {
 SimpleStepper.propTypes = {
   steps: PropTypes.array.isRequired,
   stepsContent: PropTypes.array.isRequired,
+  handleReset: PropTypes.func,
+};
+
+SimpleStepper.defaultProps = {
+  handleReset: null,
 };

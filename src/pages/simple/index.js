@@ -1,11 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Grid, Divider } from '@material-ui/core';
 
 import SimpleCard from 'components/SimpleCard';
-import makeGoogleMapUrl from 'core/makeGoogleMapUrl';
-import cutToBlockNumber from 'core/cutToBlockNumber';
-import purgeAddress from 'core/purgeAddress';
 
 import {
   AddressAfter,
@@ -14,54 +12,9 @@ import {
   GoogleMapUrl,
 } from 'views/Steps';
 
-const changeableFields = ['prefecture', 'city', 'addressBef'];
+import injectOperations from 'views/hoc/injectOperations';
 
-function RootIndex() {
-  const [values, setValues] = React.useState({
-    prefecture: '埼玉県',
-    city: '草加市',
-    addressBef: '',
-    addressAft: '',
-    addressForMap: '',
-    mapUrl: '',
-  });
-
-  const getTransformed = ({ addressBef, prefecture, city }) => {
-    const addressList = addressBef
-      .replace(/\r\n|\r/g, '\n')
-      .split('\n')
-      .map(purgeAddress)
-      .filter(x => x);
-
-    const addressForMapList = addressList
-      .map(cutToBlockNumber)
-      .map(ad => `${prefecture}${city}${ad}`);
-
-    const mapUrlList = addressForMapList.map(ad => makeGoogleMapUrl(ad));
-
-    return {
-      addressAft: addressList.join('\r\n'),
-      addressForMap: addressForMapList.join('\r\n'),
-      mapUrl: mapUrlList.join('\r\n'),
-    };
-  };
-
-  const handleChange = name => event => {
-    const newValues = {
-      ...values,
-      [name]: event.target.value,
-    };
-
-    if (changeableFields.includes(name)) {
-      setValues({
-        ...newValues,
-        ...getTransformed(newValues),
-      });
-    } else {
-      setValues({ ...newValues });
-    }
-  };
-
+function Simple({ handleChange, values }) {
   return (
     <Grid container spacing={3} style={{ marginBottom: 40 }}>
       <Grid item md={6} xs={12}>
@@ -105,4 +58,9 @@ function RootIndex() {
   );
 }
 
-export default RootIndex;
+Simple.defaultProps = {
+  values: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+};
+
+export default injectOperations(Simple);
