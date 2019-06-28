@@ -18,7 +18,7 @@ const styles = {
     fontStyle: 'oblique',
   },
   liStyle: {
-    color: grey[400],
+    color: grey[700],
     textTransform: 'capitalize',
   },
   selected: {
