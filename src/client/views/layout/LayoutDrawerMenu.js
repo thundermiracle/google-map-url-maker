@@ -4,18 +4,9 @@ import { NextLink } from 'lib/NextRelative';
 
 import DrawerMenu from 'components/DrawerMenu';
 
-const LayoutDrawerMenu = () => {
-  const pathmap = [
-    {
-      pathname: '',
-      pathtext: '変換ツール',
-    },
-    {
-      pathname: 'about',
-      pathtext: '使用説明',
-    },
-  ];
+import pathmap from 'config/pathmap';
 
+const LayoutDrawerMenu = () => {
   return <DrawerMenu pathMap={pathmap} linkComponent={NextLink} />;
 };
 
