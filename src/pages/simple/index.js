@@ -58,7 +58,7 @@ function Simple({ handleChange, values }) {
   );
 }
 
-Simple.defaultProps = {
+Simple.propTypes = {
   values: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
 };
