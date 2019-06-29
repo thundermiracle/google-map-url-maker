@@ -1,13 +1,13 @@
 {
   "name": "map-url",
-  "version": "0.2.0",
+  "version": "0.9.0",
   "description": "automatically format addresses and generate google map urls",
   "scripts": {
     "eslint": "eslint src/",
     "jest": "jest --passWithNoTests",
     "test": "npm run eslint && npm run jest",
     "dev": "next ./src -p 3000",
-    "export": "next build ./src && next export ./src -o .statichtml/"
+    "export": "next build ./src && next export ./src -o dist/"
   },
   "author": "thundermiracle",
   "license": "MIT",

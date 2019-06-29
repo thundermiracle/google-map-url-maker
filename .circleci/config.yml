@@ -48,7 +48,7 @@ jobs:
       - persist_to_workspace:
           root: ./
           paths:
-            - .statichtml
+            - dist
 
   deploy:
     executor: node
@@ -63,7 +63,7 @@ jobs:
           command: sudo npm install -g --silent netlify-cli
       - run: 
           name: Deploy to Netlify
-          command: netlify deploy --dir=./.statichtml -p
+          command: netlify deploy --dir=dist -p
 
 workflows:
   version: 2
