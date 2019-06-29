@@ -10,7 +10,7 @@ https://map-url.netlify.com
 
 ## 処理順番
 
-住所を入力　→　【自動】住所をフォーマット　→　 【自動】Google Map 用の住所を生成　→　【自動】Google Map 用の URL を生成
+都道府県、市区町村選択　→　住所を入力　→　【自動】Google Map 用の住所を生成　→　【自動】Google Map 用の URL を生成　→　【自動】住所をフォーマット
 
 ## 操作方法
 
