@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { pickAll, pickBy } from 'ramda';
 
 import makeGoogleMapUrl from 'core/makeGoogleMapUrl';
 import cutToBlockNumber from 'core/cutToBlockNumber';
 import purgeAddress from 'core/purgeAddress';
+import { save, load } from 'lib/persisit';
 
 const changeableFields = ['prefecture', 'city', 'addressBef'];
 
 function injectOperations(BaseComponent) {
   function withOperations(props) {
-    const [values, setValues] = React.useState({
+    const [values, setValues] = useState({
       prefecture: '埼玉県',
       city: '草加市',
       addressBef: '',
@@ -16,6 +19,27 @@ function injectOperations(BaseComponent) {
       addressForMap: '',
       mapUrl: '',
     });
+
+    // side effect
+    const persistData = newValues => {
+      save(pickAll(changeableFields, newValues));
+    };
+
+    // side effect
+    const loadData = () => {
+      const isNotNull = (val, key) =>
+        changeableFields.includes(key) && val != null;
+      const savedData = pickBy(isNotNull, load());
+
+      setValues({
+        ...values,
+        ...savedData,
+      });
+    };
+
+    useEffect(() => {
+      loadData();
+    }, []);
 
     const getTransformed = ({ addressBef, prefecture, city }) => {
       const addressList = addressBef
@@ -48,6 +72,7 @@ function injectOperations(BaseComponent) {
           ...newValues,
           ...getTransformed(newValues),
         });
+        persistData(newValues);
       } else {
         setValues({ ...newValues });
       }
