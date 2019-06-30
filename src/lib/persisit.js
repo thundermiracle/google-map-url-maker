@@ -13,4 +13,8 @@ function load() {
   return JSON.parse(savedVal);
 }
 
-export { save, load };
+function remove() {
+  sessionStorage.removeItem(key);
+}
+
+export { save, load, remove };

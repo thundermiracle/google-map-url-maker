@@ -38,6 +38,7 @@ function injectOperations(BaseComponent) {
     };
 
     useEffect(() => {
+      console.log('loadData');
       loadData();
     }, []);
 
@@ -78,8 +79,26 @@ function injectOperations(BaseComponent) {
       }
     };
 
+    const handleReset = () => {
+      const newValues = {
+        ...values,
+        addressBef: '',
+        addressAft: '',
+        addressForMap: '',
+        mapUrl: '',
+      };
+
+      setValues(newValues);
+      persistData(newValues);
+    };
+
     return (
-      <BaseComponent {...props} handleChange={handleChange} values={values} />
+      <BaseComponent
+        {...props}
+        handleChange={handleChange}
+        handleReset={handleReset}
+        values={values}
+      />
     );
   }
 
