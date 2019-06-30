@@ -14,7 +14,7 @@ import {
 import SimpleCard from 'client/views/components/SimpleCard';
 import injectOperations from 'client/views/hoc/injectOperations';
 
-function RootIndex({ handleChange, values }) {
+function RootIndex({ handleChange, handleReset, values }) {
   const steps = [
     '都道府県、市区町村選択',
     '変換前アドレスを入力',
@@ -64,7 +64,11 @@ function RootIndex({ handleChange, values }) {
 
   return (
     <Grid container style={{ marginBottom: 40 }}>
-      <SimpleStepper steps={steps} stepsContent={stepsContent} />
+      <SimpleStepper
+        steps={steps}
+        stepsContent={stepsContent}
+        handleReset={handleReset}
+      />
     </Grid>
   );
 }
@@ -72,6 +76,11 @@ function RootIndex({ handleChange, values }) {
 RootIndex.propTypes = {
   values: PropTypes.object.isRequired,
   handleChange: PropTypes.func.isRequired,
+  handleReset: PropTypes.func,
+};
+
+RootIndex.defaultProps = {
+  handleReset: null,
 };
 
 export default injectOperations(RootIndex);
