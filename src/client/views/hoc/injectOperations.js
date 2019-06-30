@@ -38,7 +38,6 @@ function injectOperations(BaseComponent) {
     };
 
     useEffect(() => {
-      console.log('loadData');
       loadData();
     }, []);
 
