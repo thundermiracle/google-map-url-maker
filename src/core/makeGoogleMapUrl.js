@@ -1,5 +1,6 @@
-export default function makeGoogleMapUrl(fullAddress) {
-  const baseUrl = 'https://www.google.com/maps?q=';
-
+export default function makeGoogleMapUrl(
+  fullAddress,
+  baseUrl = 'https://www.google.com/maps?q=',
+) {
   return `${baseUrl}${encodeURIComponent(fullAddress)}`;
 }
