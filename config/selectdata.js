@@ -10,5 +10,9 @@ const CityList = [
   '北葛飾郡松伏町',
   'さいたま市',
 ];
+const MapBaseUrlList = [
+  'https://www.google.com/maps?q=',
+  'https://www.google.com/maps/search/?api=1&query=',
+];
 
-export { PrefectureList, CityList };
+export { PrefectureList, CityList, MapBaseUrlList };
