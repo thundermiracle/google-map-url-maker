@@ -5,15 +5,16 @@ import { pickAll, pickBy } from 'ramda';
 import makeGoogleMapUrl from 'core/makeGoogleMapUrl';
 import cutToBlockNumber from 'core/cutToBlockNumber';
 import purgeAddress from 'core/purgeAddress';
-import { save, load } from 'lib/persisit';
+import { save, load } from 'lib/persist';
 
-const changeableFields = ['prefecture', 'city', 'addressBef'];
+const changeableFields = ['prefecture', 'city', 'mapBaseUrl', 'addressBef'];
 
 function injectOperations(BaseComponent) {
   function withOperations(props) {
     const [values, setValues] = useState({
       prefecture: '埼玉県',
       city: '草加市',
+      mapBaseUrl: 'https://www.google.com/maps?q=',
       addressBef: '',
       addressAft: '',
       addressForMap: '',
@@ -41,7 +42,7 @@ function injectOperations(BaseComponent) {
       loadData();
     }, []);
 
-    const getTransformed = ({ addressBef, prefecture, city }) => {
+    const getTransformed = ({ addressBef, prefecture, city, mapBaseUrl }) => {
       const addressList = addressBef
         .replace(/\r\n|\r/g, '\n')
         .split('\n')
@@ -52,7 +53,9 @@ function injectOperations(BaseComponent) {
         .map(cutToBlockNumber)
         .map(ad => `${prefecture}${city}${ad}`);
 
-      const mapUrlList = addressForMapList.map(ad => makeGoogleMapUrl(ad));
+      const mapUrlList = addressForMapList.map(ad =>
+        makeGoogleMapUrl(ad, mapBaseUrl),
+      );
 
       return {
         addressAft: addressList.join('\r\n'),

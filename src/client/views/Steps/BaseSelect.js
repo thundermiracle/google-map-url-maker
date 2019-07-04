@@ -5,13 +5,15 @@ import { Grid } from '@material-ui/core';
 
 import SimpleSelect from 'components/SimpleSelect';
 
-import { PrefectureList, CityList } from 'config/selectdata';
+import { PrefectureList, CityList, MapBaseUrlList } from 'config/selectdata';
 
 function BaseSelect({
   handleChangePrefecture,
   prefecture,
   handleChangeCity,
   city,
+  handleChangeMapBaseUrl,
+  mapBaseUrl,
 }) {
   return (
     <Grid container spacing={2}>
@@ -32,6 +34,15 @@ function BaseSelect({
           value={city}
         />
       </Grid>
+
+      <Grid item xs={6}>
+        <SimpleSelect
+          label="GoogleMapベースURL"
+          handleChange={handleChangeMapBaseUrl}
+          valueList={MapBaseUrlList}
+          value={mapBaseUrl}
+        />
+      </Grid>
     </Grid>
   );
 }
@@ -41,6 +52,8 @@ BaseSelect.propTypes = {
   prefecture: PropTypes.string.isRequired,
   handleChangeCity: PropTypes.func.isRequired,
   city: PropTypes.string.isRequired,
+  handleChangeMapBaseUrl: PropTypes.func.isRequired,
+  mapBaseUrl: PropTypes.string.isRequired,
 };
 
 export default BaseSelect;

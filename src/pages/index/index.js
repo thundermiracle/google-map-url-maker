@@ -31,8 +31,10 @@ function RootIndex({ handleChange, handleReset, values }) {
       <BaseSelect
         prefecture={values.prefecture}
         city={values.city}
+        mapBaseUrl={values.mapBaseUrl}
         handleChangePrefecture={handleChange('prefecture')}
         handleChangeCity={handleChange('city')}
+        handleChangeMapBaseUrl={handleChange('mapBaseUrl')}
       />
     </SimpleCard>
   );
