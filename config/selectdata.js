@@ -1,5 +1,6 @@
 const PrefectureList = ['埼玉県'];
 const CityList = [
+  '',
   '三郷市',
   '八潮市',
   '吉川市',
@@ -9,6 +10,8 @@ const CityList = [
   '春日部市',
   '北葛飾郡松伏町',
   'さいたま市',
+  '蕨市',
+  '戸田市',
 ];
 const MapBaseUrlList = [
   'https://www.google.com/maps?q=',
