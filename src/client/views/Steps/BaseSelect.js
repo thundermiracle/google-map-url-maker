@@ -23,6 +23,7 @@ function BaseSelect({
           handleChange={handleChangePrefecture}
           valueList={PrefectureList}
           value={prefecture}
+          style={{ minWidth: 120 }}
         />
       </Grid>
 
@@ -32,10 +33,11 @@ function BaseSelect({
           handleChange={handleChangeCity}
           valueList={CityList}
           value={city}
+          style={{ minWidth: 120 }}
         />
       </Grid>
 
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6}>
         <SimpleSelect
           label="GoogleMapベースURL"
           handleChange={handleChangeMapBaseUrl}
